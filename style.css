@@ -1,0 +1,60 @@
+ <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+      width: 90vw;
+      max-width: 1200px;
+      padding: 20px;
+    }
+    .blob {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .blob.active {
+      z-index: 10;
+      transform: scale(2);
+      background: #fff;
+      color: #000;
+    }
+    .term {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    .definition {
+      font-size: 0.95em;
+      margin-top: 10px;
+    }
+    .search-container {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      background: #222;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .search-container input {
+      padding: 6px 10px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
