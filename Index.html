@@ -1,141 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Definition Blob Grid</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #111;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 10px;
-      width: 90vw;
-      max-width: 1200px;
-      padding: 20px;
-    }
-    .blob {
-      background: #333;
-      color: #fff;
-      padding: 20px;
-      border-radius: 20px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-    .blob.active {
-      z-index: 10;
-      transform: scale(2);
-      background: #fff;
-      color: #000;
-    }
-    .term {
-      font-weight: bold;
-      font-size: 1.2em;
-    }
-    .definition {
-      font-size: 0.95em;
-      margin-top: 10px;
-    }
-    .search-container {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 20;
-      background: #222;
-      padding: 10px;
-      border-radius: 10px;
-    }
-    .search-container input {
-      padding: 6px 10px;
-      font-size: 1em;
-      border: none;
-      border-radius: 5px;
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <div class="search-container">
-    <input type="text" id="search" placeholder="Search terms...">
+    <input type="text" id="search" placeholder="Search terms..." />
   </div>
   <div class="grid" id="grid"></div>
-  <script>
-    const terms = [
-      {
-        term: "Flux",
-        definitions: [
-          "A state of constant change.",
-          "A physical flow rate.",
-          "In electronics, magnetic field flow."
-        ]
-      },
-      {
-        term: "Node",
-        definitions: [
-          "A connection point.",
-          "A data structure element.",
-          "A point of intersection."
-        ]
-      }
-      // Extend this array to 100 terms with up to 10 definitions each.
-    ];
-
-    const grid = document.getElementById('grid');
-    const search = document.getElementById('search');
-
-    function renderGrid(filter = '') {
-      grid.innerHTML = '';
-      terms.filter(entry => entry.term.toLowerCase().includes(filter.toLowerCase())).forEach((entry) => {
-        const blob = document.createElement('div');
-        blob.className = 'blob';
-        blob.innerHTML = `<div class="term">${entry.term}</div><div class="definition">${entry.definitions[0]}</div>`;
-        let defIndex = 0;
-        let interval = null;
-
-        blob.addEventListener('click', (e) => {
-          document.querySelectorAll('.blob').forEach(b => b.classList.remove('active'));
-          blob.classList.add('active');
-        });
-
-        blob.addEventListener('mousedown', () => {
-          interval = setInterval(() => {
-            defIndex = (defIndex + 1) % entry.definitions.length;
-            blob.querySelector('.definition').textContent = entry.definitions[defIndex];
-          }, 1000);
-        });
-
-        blob.addEventListener('mouseup', () => {
-          clearInterval(interval);
-          defIndex = 0;
-          blob.querySelector('.definition').textContent = entry.definitions[0];
-        });
-
-        grid.appendChild(blob);
-      });
-    }
-
-    renderGrid();
-
-    search.addEventListener('input', () => {
-      renderGrid(search.value);
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.blob')) {
-        document.querySelectorAll('.blob').forEach(b => b.classList.remove('active'));
-      }
-    });
-  </script>
+  <script src="js/main.js"></script>
 </body>
 </html>
